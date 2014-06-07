@@ -35,3 +35,22 @@ syntax enable
 
 set background=dark
 
+set nocompatible
+
+filetype off
+
+if has('vim_starting')
+	set runtimepath+=~/.vimfiles/bundle/neobundle.vim/
+	call neobundle#rc(expand('~/.vimfiles/bundle/'))
+endif
+
+NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'The-NERD-tree'
+NeoBundle 'The-NERD-Commenter'
+
+filetype plugin indent on
+
+NeoBundleCheck
+
