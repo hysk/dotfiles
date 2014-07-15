@@ -1,13 +1,83 @@
-" 行番号表示
-set nu
+" [Backspace] で既存の文字を削除できるように設定
+"  start - 既存の文字を削除できるように設定
+"  eol - 行頭で[Backspace]を使用した場合上の行と連結
+"  indent - オートインデントモードでインデントを削除できるように設定
+set backspace=start,eol,indent
 
-" タブ数
+" 特定のキーに行頭および行末の回りこみ移動を許可する設定
+"  b - [Backspace]  ノーマルモード ビジュアルモード
+"  s - [Space]      ノーマルモード ビジュアルモード
+"   - [→]          ノーマルモード ビジュアルモード
+"  [ - [←]          挿入モード 置換モード
+"  ] - [→]          挿入モード 置換モード
+"  ~ - ~            ノーマルモード
+set whichwrap=b,s,[,],,~
+
+" マウス機能有効化
+set mouse=a
+
+" カラースキーマ
+"colorscheme molokai
+
+" シンタックスハイライト有効化 (背景黒向け。白はコメントアウト
+" されている設定を使用)
+syntax enable
+highlight Normal ctermbg=black ctermfg=grey
+highlight StatusLine term=none cterm=none ctermfg=black ctermbg=grey
+highlight CursorLine term=none cterm=none ctermfg=none ctermbg=darkgray
+
+"let g:molokai_original = 1
+"set background=dark
+
+""set nohlsearch " 検索キーワードをハイライトしないように設定
+set cursorline " カーソルラインの強調表示を有効化
+
+" 行番号を表示
+set number
+
+" タブ入力を複数の空白入力に置き換える 
+set expandtab
+
+" タブ文字幅
 set tabstop=4
 
-set scrolloff=5
+" 自動インデント幅
+set shiftwidth=4
 
-" 入力されているテキストの最大幅　0で無効
-set textwidth=0
+" オートインデント
+set autoindent
+set smartindent
+
+" カーソルの行列数を表示
+set ruler
+
+" 新しいウィンドウを右に開く
+set splitright
+
+" ステータスラインを表示
+set laststatus=2
+
+" ステータスラインの内容
+set statusline=%F%m%r%h%w\%=[TYPE=%Y]\[FORMAT=%{&ff}]\[ENC=%{&fileencoding}]\[LOW=%l/%L]
+
+" インクリメンタル検索を有効化
+""set incsearch
+
+" 補完時の一覧表示機能有効化
+set wildmenu wildmode=list:full
+
+" 自動的にファイルを読み込むパスを設定 ~/.vim/userautoload/*vim
+set runtimepath+=$HOME/.vim
+runtime! userautoload/*.vim
+
+" 改行コード
+set fileformats=unix,dos,mac
+
+" 文字コード
+set encoding=utf-8
+
+" 文字コード自動判別
+set fileencodings=sjis,euc-jp
 
 " バックアップを作成しない
 set nobackup
@@ -15,42 +85,54 @@ set nobackup
 " vim外部で変更されたときに自動的に読み込み
 set autoread
 
-" スワップファイルを作成しない
+" swapファイルを作成しない
 set noswapfile
 
-" バックスペースでインデントや改行を削除
-set backspace=indent,eol,start
 
-" ステータス行を常に表示
-set laststatus=2
+" タブ移動
+nnoremap <C-n> gt
+nnoremap <C-p> gT
 
-" カーソルの行列数を表示
-set ruler
-
-" すべてのモードでマウス有効
-set mouse=a
-
-" カラー表示
-syntax enable
-
-set background=dark
-
-set nocompatible
-
-filetype off
-
-if has('vim_starting')
-	set runtimepath+=~/.vimfiles/bundle/neobundle.vim/
-	call neobundle#rc(expand('~/.vimfiles/bundle/'))
+"NeoBundle Scripts-----------------------------
+if has('vim_starting') 
+    set nocompatible               " Be iMproved
+        
+    " Required:
+    set runtimepath+=/home/higuchiy/.vim/bundle/neobundle.vim/
 endif
 
-NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'The-NERD-tree'
-NeoBundle 'The-NERD-Commenter'
+" Required:
+call neobundle#begin(expand('/home/higuchiy/.vim/bundle'))
 
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" My Bundles here:
+NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'flazz/vim-colorschemes'
+
+NeoBundle 'scrooloose/nerdtree'
+
+" You can specify revision/branch/tag.
+NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
+
+" Required:
+call neobundle#end()
+
+" Required:
 filetype plugin indent on
 
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
 NeoBundleCheck
+"End NeoBundle Scripts-------------------------
 
+" NERDTreeを常に起動
+let g:NERDTreeShowBookmarks=1
+if !argc()
+    autocmd vimenter * NERDTree
+endif
