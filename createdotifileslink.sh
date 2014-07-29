@@ -4,6 +4,9 @@ echo "start"
 
 cd `dirname $0`
 
+echo "git submodule update"
+git submodule update --init
+
 targets=(.vimrc .vim)
 
 for file in ${targets[@]}; do
