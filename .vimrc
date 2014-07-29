@@ -1,3 +1,6 @@
+" vi互換OFF    
+set nocompatible
+
 " [Backspace] で既存の文字を削除できるように設定
 "  start - 既存の文字を削除できるように設定
 "  eol - 行頭で[Backspace]を使用した場合上の行と連結
@@ -12,9 +15,6 @@ set backspace=start,eol,indent
 "  ] - [→]          挿入モード 置換モード
 "  ~ - ~            ノーマルモード
 set whichwrap=b,s,[,],,~
-
-" マウス機能有効化
-set mouse=a
 
 " カラースキーマ
 colorscheme molokai
@@ -93,9 +93,14 @@ set noswapfile
 nnoremap <C-n> gt
 nnoremap <C-p> gT
 
+" viでは読み込まない ここから
+if 1
+
+" マウス機能有効化
+set mouse=a
+
 "NeoBundle Scripts-----------------------------
 if has('vim_starting') 
-    set nocompatible               " Be iMproved
         
     " Required:
     set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -136,3 +141,7 @@ let g:NERDTreeShowBookmarks=1
 if !argc()
     autocmd vimenter * NERDTree
 endif
+
+" viでは読み込まない ここまで
+endif
+
