@@ -16,6 +16,9 @@ set backspace=start,eol,indent
 "  ~ - ~            ノーマルモード
 set whichwrap=b,s,[,],,~
 
+" カーソル行カラー変更
+autocmd ColorScheme * highlight CursorLine term=underline cterm=underline ctermfg=227 ctermbg=233
+
 " カラースキーマ
 colorscheme molokai
 let g:molokai_original = 1
@@ -25,9 +28,9 @@ set background=dark
 " シンタックスハイライト有効化 (背景黒向け。白はコメントアウト
 " されている設定を使用)
 syntax enable
-highlight Normal ctermbg=black ctermfg=grey
-highlight StatusLine term=none cterm=none ctermfg=black ctermbg=grey
-highlight CursorLine term=none cterm=none ctermfg=none ctermbg=darkgray
+" highlight Normal ctermbg=black ctermfg=grey
+" highlight StatusLine term=none cterm=none ctermfg=black ctermbg=grey
+" highlight CursorLine term=none cterm=none ctermfg=none ctermbg=darkgray
 
 ""set nohlsearch " 検索キーワードをハイライトしないように設定
 set cursorline " カーソルラインの強調表示を有効化
