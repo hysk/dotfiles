@@ -119,6 +119,10 @@ nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 nnoremap sq :<C-u>q<CR>
 nnoremap sQ :<C-u>bd<CR>
+nnoremap <Space>h <C-w><
+nnoremap <Space>l <C-w>>
+nnoremap <Space>j <C-w>-
+nnoremap <Space>k <C-w>+
 
 
 
@@ -153,6 +157,9 @@ NeoBundle 'scrooloose/nerdtree'
 
 " You can specify revision/branch/tag.
 NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
+
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimproc'
 
 " Required:
 call neobundle#end()
