@@ -124,7 +124,11 @@ nnoremap <Space>l <C-w>>
 nnoremap <Space>j <C-w>-
 nnoremap <Space>k <C-w>+
 
-
+" Unite
+noremap <C-U><C-B> :Unite buffer<CR>
+noremap <C-U><C-F> :UniteWithBufferDir -buffer-name=files file<CR>
+noremap <C-U><C-R> :Unite file_mru<CR>
+noremap <C-U><C-Y> :Unite -buffer-name=register register<CR>
 
 " viでは読み込まない ここから
 if 1
@@ -160,6 +164,7 @@ NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
 
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/neomru.vim'
 
 " Required:
 call neobundle#end()
