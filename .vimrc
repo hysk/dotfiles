@@ -21,7 +21,7 @@ autocmd ColorScheme * highlight CursorLine term=underline cterm=underline ctermf
 
 " カラースキーマ
 colorscheme molokai
-let g:molokai_original = 1
+" let g:molokai_original = 1
 set t_Co=256
 set background=dark
 
