@@ -130,6 +130,9 @@ noremap <C-U><C-F> :UniteWithBufferDir -buffer-name=files file<CR>
 noremap <C-U><C-R> :Unite file_mru<CR>
 noremap <C-U><C-Y> :Unite -buffer-name=register register<CR>
 
+" NERDTree
+nnoremap <f2> :NERDTreeToggle<CR>
+
 
 "mstertestmastertest
 
