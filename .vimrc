@@ -80,7 +80,7 @@ set fileformats=unix,dos,mac
 set encoding=utf-8
 
 " 文字コード自動判別
-set fileencodings=sjis,euc-jp
+set fileencodings=utf-8,sjis,euc-jp
 
 " バックアップを作成しない
 set nobackup
@@ -177,6 +177,9 @@ call neobundle#end()
 
 " Required:
 filetype plugin indent on
+
+" ファイルタイプ
+au BufNewFile,BufRead *.jbuilder setf ruby
 
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
