@@ -142,49 +142,87 @@ if 1
 " マウス機能有効化
 set mouse=a
 
-"NeoBundle Scripts-----------------------------
-if has('vim_starting') 
-        
-    " Required:
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+""NeoBundle Scripts-----------------------------
+"if has('vim_starting') 
+"        
+"    " Required:
+"    set runtimepath+=~/.vim/bundle/neobundle.vim/
+"endif
+"
+"" Required:
+"call neobundle#begin(expand('~/.vim/bundle'))
+"
+"" Let NeoBundle manage NeoBundle
+"" Required:
+"NeoBundleFetch 'Shougo/neobundle.vim'
+"
+"" My Bundles here:
+"NeoBundle 'Shougo/neosnippet.vim'
+"NeoBundle 'Shougo/neosnippet-snippets'
+"NeoBundle 'tpope/vim-fugitive'
+"NeoBundle 'kien/ctrlp.vim'
+"NeoBundle 'flazz/vim-colorschemes'
+"
+"NeoBundle 'scrooloose/nerdtree'
+"
+"" You can specify revision/branch/tag.
+"NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
+"
+"NeoBundle 'Shougo/unite.vim'
+"NeoBundle 'Shougo/vimproc'
+"NeoBundle 'Shougo/neomru.vim'
+"
+"" Required:
+"call neobundle#end()
+"
+"" Required:
+"filetype plugin indent on
+"
+"
+"" If there are uninstalled bundles found on startup,
+"" this will conveniently prompt you to install them.
+"NeoBundleCheck
+""End NeoBundle Scripts-------------------------
+
+" dein
+if &compatible
+    set nocompatible
+endif
+set runtimepath^=~/.vim/dein/repos/github.com/Shougo/dein.vim
+
+call dein#begin(expand('~/.cache/dein'))
+
+call dein#add('Shougo/dein.vim')
+
+call dein#add('Shougo/vimproc.vim', {
+                        \'build': {
+                        \'mac'     : 'make -f make_mac.mak',
+                        \'linux'   : 'make',
+                        \'unix'    : 'gmake'
+                        \}
+                        \})
+
+call dein#add('Shougo/neocomplete.vim')
+call dein#add('Shougo/neomru.vim')
+call dein#add('Shougo/neosnippet')
+call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Shougo/unite.vim')
+call dein#add('Shougo/vimshell')
+call dein#add('scrooloose/nerdtree')
+
+call dein#end()
+
+filetype plugin indent on
+
+if executable('ag')
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+    let g:unite_source_grep_recursive_opt = ''
 endif
 
-" Required:
-call neobundle#begin(expand('~/.vim/bundle'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" My Bundles here:
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'flazz/vim-colorschemes'
-
-NeoBundle 'scrooloose/nerdtree'
-
-" You can specify revision/branch/tag.
-NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc'
-NeoBundle 'Shougo/neomru.vim'
-
-" Required:
-call neobundle#end()
-
-" Required:
-filetype plugin indent on
 
 " ファイルタイプ
 au BufNewFile,BufRead *.jbuilder setf ruby
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-"End NeoBundle Scripts-------------------------
 
 " NERDTreeを常に起動
 let g:NERDTreeShowBookmarks=1
