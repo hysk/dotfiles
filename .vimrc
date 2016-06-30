@@ -91,6 +91,9 @@ set autoread
 " swapファイルを作成しない
 set noswapfile
 
+" 検索の大文字小文字
+set ignorecase
+set smartcase
 
 " タブ移動
 " nnoremap <C-n> gt
