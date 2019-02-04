@@ -138,7 +138,7 @@ nnoremap <f2> :NERDTreeToggle<CR>
 if 1
 
 " マウス機能有効化
-set mouse=a
+"set mouse=a
 
 
 " dein
