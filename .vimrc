@@ -1,4 +1,4 @@
-" vi互換OFF    
+" vi互換OFF
 set nocompatible
 
 set cursorline " カーソルラインの強調表示を有効化
@@ -21,8 +21,14 @@ set backspace=start,eol,indent
 "  ~ - ~            ノーマルモード
 set whichwrap=b,s,[,],,~
 
-" カーソル行カラー変更
+" 行末の空白削除
+autocmd BufWritePre * :%s/\s\+$//ge
+
+" カラー変更
+" カーソル行
 autocmd ColorScheme * highlight CursorLine term=underline cterm=underline ctermfg=227 ctermbg=233
+" 検索結果ハイライト
+autocmd ColorScheme * highlight Search ctermfg=17 ctermbg=213
 
 " カラースキーマ
 colorscheme molokai
@@ -49,9 +55,9 @@ set fileformats=unix,dos,mac    " 改行コード自動判別
 
 
 " タブ・インデント -----
-set expandtab   "タブ入力を複数の空白入力に置き換える 
-set tabstop=4   "タブ文字幅
-set shiftwidth=4       "自動インデント幅
+set expandtab   "タブ入力を複数の空白入力に置き換える
+set tabstop=2   "タブ文字幅
+set shiftwidth=2       "自動インデント幅
 set autoindent  "オートインデント
 set smartindent "改行時に前の行のインデントを考慮する
 
@@ -137,57 +143,67 @@ nnoremap <f2> :NERDTreeToggle<CR>
 " viでは読み込まない ここから
 if 1
 
-" マウス機能有効化
-"set mouse=a
+  " マウス機能有効化
+  "set mouse=a
 
 
-" dein
-if &compatible
+  " dein
+  if &compatible
     set nocompatible
-endif
-"set runtimepath^=~/.vim/bundle/dein.vim/
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+  endif
+  "set runtimepath^=~/.vim/bundle/dein.vim/
+  set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
-call dein#begin(expand('~/.cache/dein'))
+  call dein#begin(expand('~/.cache/dein'))
 
-call dein#add('Shougo/dein.vim')
+  call dein#add('Shougo/dein.vim')
 
-call dein#add('Shougo/vimproc.vim', {
-                        \'build': {
-                        \'mac'     : 'make -f make_mac.mak',
-                        \'linux'   : 'make',
-                        \'unix'    : 'gmake'
-                        \}
-                        \})
+  call dein#add('Shougo/vimproc.vim', {
+        \'build': {
+        \'mac'     : 'make -f make_mac.mak',
+        \'linux'   : 'make',
+        \'unix'    : 'gmake'
+        \}
+        \})
 
-call dein#add('Shougo/neocomplete.vim')
-call dein#add('Shougo/neomru.vim')
-call dein#add('Shougo/neosnippet')
-call dein#add('Shougo/neosnippet-snippets')
-call dein#add('Shougo/unite.vim')
-call dein#add('Shougo/vimshell')
-call dein#add('scrooloose/nerdtree')
+  call dein#add('Shougo/neocomplete.vim')
+  call dein#add('Shougo/neomru.vim')
+  call dein#add('Shougo/neosnippet')
+  call dein#add('Shougo/neosnippet-snippets')
+  call dein#add('Shougo/unite.vim')
+  call dein#add('Shougo/vimshell')
+  call dein#add('nikvdp/ejs-syntax')
+  call dein#add('scrooloose/nerdtree')
+  call dein#add('posva/vim-vue')
+  call dein#add('othree/yajs.vim')
 
-call dein#end()
+  " fzf
+  if executable('rg')
+    call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+    call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+  endif
 
-filetype plugin indent on
+  call dein#end()
 
-if executable('ag')
+  filetype plugin indent on
+
+  if executable('ag')
     let g:unite_source_grep_command = 'ag'
     let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
     let g:unite_source_grep_recursive_opt = ''
-endif
+  endif
 
 
-" ファイルタイプ
-au BufNewFile,BufRead *.jbuilder setf ruby
+  " ファイルタイプ
+  au BufNewFile,BufRead *.jbuilder set filetype=ruby
+  au BufNewFile,BufRead *.ejs set filetype=html
 
-" NERDTreeを常に起動
-let g:NERDTreeShowBookmarks=1
-if !argc()
+  " NERDTreeを常に起動
+  let g:NERDTreeShowBookmarks=1
+  if !argc()
     autocmd vimenter * NERDTree
-endif
+  endif
 
-" viでは読み込まない ここまで
+  " viでは読み込まない ここまで
 endif
 
