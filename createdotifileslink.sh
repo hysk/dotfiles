@@ -7,7 +7,7 @@ cd `dirname $0`
 echo "git submodule update"
 git submodule update --init
 
-targets=(.vimrc .vim)
+targets=(.vimrc .vim .git-completion.bash .git-prompt.sh)
 
 for file in ${targets[@]}; do
     fpath=$HOME/$file

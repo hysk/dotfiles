@@ -1,11 +1,16 @@
-" vi互換OFF    
+" vi互換OFF
 set nocompatible
+
+set cursorline " カーソルラインの強調表示を有効化
+set number      " 行番号を表示
 
 " [Backspace] で既存の文字を削除できるように設定
 "  start - 既存の文字を削除できるように設定
 "  eol - 行頭で[Backspace]を使用した場合上の行と連結
 "  indent - オートインデントモードでインデントを削除できるように設定
 set backspace=start,eol,indent
+
+
 
 " 特定のキーに行頭および行末の回りこみ移動を許可する設定
 "  b - [Backspace]  ノーマルモード ビジュアルモード
@@ -16,8 +21,14 @@ set backspace=start,eol,indent
 "  ~ - ~            ノーマルモード
 set whichwrap=b,s,[,],,~
 
-" カーソル行カラー変更
+" 行末の空白削除
+autocmd BufWritePre * :%s/\s\+$//ge
+
+" カラー変更
+" カーソル行
 autocmd ColorScheme * highlight CursorLine term=underline cterm=underline ctermfg=227 ctermbg=233
+" 検索結果ハイライト
+autocmd ColorScheme * highlight Search ctermfg=17 ctermbg=213
 
 " カラースキーマ
 colorscheme molokai
@@ -32,27 +43,25 @@ syntax enable
 " highlight StatusLine term=none cterm=none ctermfg=black ctermbg=grey
 " highlight CursorLine term=none cterm=none ctermfg=none ctermbg=darkgray
 
-""set nohlsearch " 検索キーワードをハイライトしないように設定
-set cursorline " カーソルラインの強調表示を有効化
 
-" 行番号を表示
-set number
 
-" タブ入力を複数の空白入力に置き換える 
-set expandtab
+" 文字コード関連 -----
+set encoding=utf-8              " 文字コード
+scriptencoding utf-8            " マルチバイト文字設定
+set fileencoding=utf-8          " 保存時文字コード
+set fileencodings=utf-8,sjis,euc-jp     " 文字コード自動判別
+set fileformats=unix,dos,mac    " 改行コード自動判別
+"set ambiwidth=double           " □などの崩れ対策
 
-" タブ文字幅
-set tabstop=4
 
-" 自動インデント幅
-set shiftwidth=4
+" タブ・インデント -----
+set expandtab   "タブ入力を複数の空白入力に置き換える
+set tabstop=2   "タブ文字幅
+set shiftwidth=2       "自動インデント幅
+set autoindent  "オートインデント
+set smartindent "改行時に前の行のインデントを考慮する
 
-" オートインデント
-set autoindent
-set smartindent
-
-" カーソルの行列数を表示
-set ruler
+set ruler   "カーソルの行列数を表示
 
 " 新しいウィンドウを右に開く
 set splitright
@@ -63,24 +72,19 @@ set laststatus=2
 " ステータスラインの内容
 set statusline=%F%m%r%h%w\%=[TYPE=%Y]\[FORMAT=%{&ff}]\[ENC=%{&fileencoding}]\[LOW=%l/%L]
 
-" インクリメンタル検索を有効化
-""set incsearch
+" 検索 -----
+""set incsearch         " インクリメンタル検索を有効化
+set ignorecase          " 検索の大文字小文字を区別しない
+set smartcase           " 検索パターンに大文字を含む場合は大文字小文字を区別する
+set hlsearch            " 検索キーワードをハイライト
+nnoremap <silent><f3> :<C-u>set nohlsearch!<CR>     " F3で検索結果ハイライト表示を切り替え
 
-" 補完時の一覧表示機能有効化
-set wildmenu wildmode=list:full
+set wildmenu wildmode=list:full     " コマンド補完時の一覧表示機能有効化
 
 " 自動的にファイルを読み込むパスを設定 ~/.vim/userautoload/*vim
 set runtimepath+=$HOME/.vim
 runtime! userautoload/*.vim
 
-" 改行コード
-set fileformats=unix,dos,mac
-
-" 文字コード
-set encoding=utf-8
-
-" 文字コード自動判別
-set fileencodings=utf-8,sjis,euc-jp
 
 " バックアップを作成しない
 set nobackup
@@ -139,97 +143,67 @@ nnoremap <f2> :NERDTreeToggle<CR>
 " viでは読み込まない ここから
 if 1
 
-" マウス機能有効化
-set mouse=a
+  " マウス機能有効化
+  "set mouse=a
 
-""NeoBundle Scripts-----------------------------
-"if has('vim_starting') 
-"        
-"    " Required:
-"    set runtimepath+=~/.vim/bundle/neobundle.vim/
-"endif
-"
-"" Required:
-"call neobundle#begin(expand('~/.vim/bundle'))
-"
-"" Let NeoBundle manage NeoBundle
-"" Required:
-"NeoBundleFetch 'Shougo/neobundle.vim'
-"
-"" My Bundles here:
-"NeoBundle 'Shougo/neosnippet.vim'
-"NeoBundle 'Shougo/neosnippet-snippets'
-"NeoBundle 'tpope/vim-fugitive'
-"NeoBundle 'kien/ctrlp.vim'
-"NeoBundle 'flazz/vim-colorschemes'
-"
-"NeoBundle 'scrooloose/nerdtree'
-"
-"" You can specify revision/branch/tag.
-"NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-"
-"NeoBundle 'Shougo/unite.vim'
-"NeoBundle 'Shougo/vimproc'
-"NeoBundle 'Shougo/neomru.vim'
-"
-"" Required:
-"call neobundle#end()
-"
-"" Required:
-"filetype plugin indent on
-"
-"
-"" If there are uninstalled bundles found on startup,
-"" this will conveniently prompt you to install them.
-"NeoBundleCheck
-""End NeoBundle Scripts-------------------------
 
-" dein
-if &compatible
+  " dein
+  if &compatible
     set nocompatible
-endif
-set runtimepath^=~/.vim/dein/repos/github.com/Shougo/dein.vim
+  endif
+  "set runtimepath^=~/.vim/bundle/dein.vim/
+  set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
-call dein#begin(expand('~/.cache/dein'))
+  call dein#begin(expand('~/.cache/dein'))
 
-call dein#add('Shougo/dein.vim')
+  call dein#add('Shougo/dein.vim')
 
-call dein#add('Shougo/vimproc.vim', {
-                        \'build': {
-                        \'mac'     : 'make -f make_mac.mak',
-                        \'linux'   : 'make',
-                        \'unix'    : 'gmake'
-                        \}
-                        \})
+  call dein#add('Shougo/vimproc.vim', {
+        \'build': {
+        \'mac'     : 'make -f make_mac.mak',
+        \'linux'   : 'make',
+        \'unix'    : 'gmake'
+        \}
+        \})
 
-call dein#add('Shougo/neocomplete.vim')
-call dein#add('Shougo/neomru.vim')
-call dein#add('Shougo/neosnippet')
-call dein#add('Shougo/neosnippet-snippets')
-call dein#add('Shougo/unite.vim')
-call dein#add('Shougo/vimshell')
-call dein#add('scrooloose/nerdtree')
+  call dein#add('Shougo/neocomplete.vim')
+  call dein#add('Shougo/neomru.vim')
+  call dein#add('Shougo/neosnippet')
+  call dein#add('Shougo/neosnippet-snippets')
+  call dein#add('Shougo/unite.vim')
+  call dein#add('Shougo/vimshell')
+  call dein#add('nikvdp/ejs-syntax')
+  call dein#add('scrooloose/nerdtree')
+  call dein#add('posva/vim-vue')
+  call dein#add('othree/yajs.vim')
 
-call dein#end()
+  " fzf
+  if executable('rg')
+    call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+    call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+  endif
 
-filetype plugin indent on
+  call dein#end()
 
-if executable('ag')
+  filetype plugin indent on
+
+  if executable('ag')
     let g:unite_source_grep_command = 'ag'
     let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
     let g:unite_source_grep_recursive_opt = ''
-endif
+  endif
 
 
-" ファイルタイプ
-au BufNewFile,BufRead *.jbuilder setf ruby
+  " ファイルタイプ
+  au BufNewFile,BufRead *.jbuilder set filetype=ruby
+  au BufNewFile,BufRead *.ejs set filetype=html
 
-" NERDTreeを常に起動
-let g:NERDTreeShowBookmarks=1
-if !argc()
+  " NERDTreeを常に起動
+  let g:NERDTreeShowBookmarks=1
+  if !argc()
     autocmd vimenter * NERDTree
-endif
+  endif
 
-" viでは読み込まない ここまで
+  " viでは読み込まない ここまで
 endif
 
