@@ -10,8 +10,6 @@ set number      " 行番号を表示
 "  indent - オートインデントモードでインデントを削除できるように設定
 set backspace=start,eol,indent
 
-
-
 " 特定のキーに行頭および行末の回りこみ移動を許可する設定
 "  b - [Backspace]  ノーマルモード ビジュアルモード
 "  s - [Space]      ノーマルモード ビジュアルモード
@@ -24,26 +22,18 @@ set whichwrap=b,s,[,],,~
 " 行末の空白削除
 autocmd BufWritePre * :%s/\s\+$//ge
 
-" カラー変更
-" カーソル行
-autocmd ColorScheme * highlight CursorLine term=underline cterm=underline ctermfg=227 ctermbg=233
-" 検索結果ハイライト
-autocmd ColorScheme * highlight Search ctermfg=17 ctermbg=213
+" カラー変更 -----
+autocmd ColorScheme * highlight CursorLine term=underline cterm=underline ctermfg=227 ctermbg=233    " カーソル行
+autocmd ColorScheme * highlight Search ctermfg=17 ctermbg=213     " 検索結果をハイライト
 
 " カラースキーマ
 colorscheme molokai
-" let g:molokai_original = 1
 set t_Co=256
 set background=dark
 
 " シンタックスハイライト有効化 (背景黒向け。白はコメントアウト
 " されている設定を使用)
 syntax enable
-" highlight Normal ctermbg=black ctermfg=grey
-" highlight StatusLine term=none cterm=none ctermfg=black ctermbg=grey
-" highlight CursorLine term=none cterm=none ctermfg=none ctermbg=darkgray
-
-
 
 " 文字コード関連 -----
 set encoding=utf-8              " 文字コード
@@ -137,15 +127,15 @@ noremap <C-U><C-Y> :Unite -buffer-name=register register<CR>
 " NERDTree
 nnoremap <f2> :NERDTreeToggle<CR>
 
+" QuickFixListを新しいタブで開く
+autocmd QuickFixCmdPost vimgrep tab cwindow
 
-"mstertestmastertest
 
 " viでは読み込まない ここから
 if 1
 
   " マウス機能有効化
   "set mouse=a
-
 
   " dein
   if &compatible
@@ -187,12 +177,11 @@ if 1
 
   filetype plugin indent on
 
-  if executable('ag')
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-    let g:unite_source_grep_recursive_opt = ''
+  " grep use ripgrep
+  if executable('rg')
+    set grepprg='rg\ --vimgrep\ --hidden'
+    set grepformat=%f:%l:%c:%m
   endif
-
 
   " ファイルタイプ
   au BufNewFile,BufRead *.jbuilder set filetype=ruby
