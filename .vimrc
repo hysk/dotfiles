@@ -157,7 +157,7 @@ if 1
         \})
 
   call dein#add('Shougo/neocomplete.vim')
-  call dein#add('Shougo/neomru.vim')
+"  call dein#add('Shougo/neomru.vim')
   call dein#add('Shougo/neosnippet')
   call dein#add('Shougo/neosnippet-snippets')
   call dein#add('Shougo/unite.vim')
@@ -166,6 +166,7 @@ if 1
   call dein#add('scrooloose/nerdtree')
   call dein#add('posva/vim-vue')
   call dein#add('othree/yajs.vim')
+  call dein#add('mrk21/yaml-vim')
 
   " fzf
   if executable('rg')
