@@ -1,3 +1,11 @@
+" =====================================
+" .vimrcの読み直し :source .vimrc
+"
+"
+"
+"
+" =====================================
+
 " vi互換OFF
 set nocompatible
 
@@ -140,39 +148,55 @@ if 1
   if &compatible
     set nocompatible
   endif
-  "set runtimepath^=~/.vim/bundle/dein.vim/
-  set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
-  call dein#begin(expand('~/.cache/dein'))
+  " dein ディレクトリ
+  let s:dein_dir = expand('~/.cache/dein')
 
-  call dein#add('Shougo/dein.vim')
+  " dein.vimの実体があるディレクトリ
+  let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
-  call dein#add('Shougo/vimproc.vim', {
-        \'build': {
-        \'mac'     : 'make -f make_mac.mak',
-        \'linux'   : 'make',
-        \'unix'    : 'gmake'
-        \}
-        \})
-
-  call dein#add('Shougo/neocomplete.vim')
-  call dein#add('Shougo/neosnippet')
-  call dein#add('Shougo/neosnippet-snippets')
-  call dein#add('Shougo/unite.vim')
-  call dein#add('Shougo/vimshell')
-  call dein#add('nikvdp/ejs-syntax')
-  call dein#add('scrooloose/nerdtree')
-  call dein#add('posva/vim-vue')
-  call dein#add('othree/yajs.vim')
-  call dein#add('mrk21/yaml-vim')
-
-  " fzf
-  if executable('rg')
-    call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
-    call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+  " deinのインストール確認 なければCloneする
+  if &runtimepath !~# '/dein.vim'
+    if !isdirectory(s:dein_repo_dir)
+      execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+    endif
+    execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
   endif
 
-  call dein#end()
+  if dein#load_state(s:dein_dir)
+    call dein#begin(s:dein_dir)
+
+    call dein#add('Shougo/dein.vim')
+
+    call dein#add('Shougo/vimproc.vim', {
+          \'build': {
+          \'mac'     : 'make -f make_mac.mak',
+          \'linux'   : 'make',
+          \'unix'    : 'gmake'
+          \}
+          \})
+
+    call dein#add('Shougo/neocomplete.vim')
+    call dein#add('Shougo/neosnippet')
+    call dein#add('Shougo/neosnippet-snippets')
+    call dein#add('Shougo/unite.vim')
+    call dein#add('Shougo/vimshell')
+    call dein#add('nikvdp/ejs-syntax')
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('posva/vim-vue')
+    call dein#add('othree/yajs.vim')
+    call dein#add('mrk21/yaml-vim')
+
+    " fzf
+    if executable('rg')
+      call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+      call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+    endif
+
+    call dein#end()
+    call dein#save_state()
+  endif
+
 
   filetype plugin indent on
 
