@@ -121,7 +121,6 @@ nnoremap <Space>k <C-w>+
 " Unite
 noremap <C-U><C-B> :Unite buffer<CR>
 noremap <C-U><C-F> :UniteWithBufferDir -buffer-name=files file<CR>
-noremap <C-U><C-R> :Unite file_mru<CR>
 noremap <C-U><C-Y> :Unite -buffer-name=register register<CR>
 
 " NERDTree
@@ -157,7 +156,6 @@ if 1
         \})
 
   call dein#add('Shougo/neocomplete.vim')
-"  call dein#add('Shougo/neomru.vim')
   call dein#add('Shougo/neosnippet')
   call dein#add('Shougo/neosnippet-snippets')
   call dein#add('Shougo/unite.vim')
