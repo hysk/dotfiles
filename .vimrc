@@ -180,7 +180,7 @@ if 1
 
   " grep use ripgrep
   if executable('rg')
-    set grepprg='rg\ --vimgrep\ --hidden'
+    set grepprg='rg\ --vimgrep\ --hidden\ --ignore-case'
     set grepformat=%f:%l:%c:%m
   endif
 
