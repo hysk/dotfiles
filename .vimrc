@@ -93,6 +93,8 @@ set autoread
 " swapファイルを作成しない
 set noswapfile
 
+" ヤンクをクリップボードに
+set clipboard+=unnamed
 
 " タブ移動
 " nnoremap <C-n> gt
