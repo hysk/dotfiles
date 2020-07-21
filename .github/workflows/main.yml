@@ -28,10 +28,11 @@ jobs:
           })
           console.log(prs)
           prs.then(function(prs){
-            console.log(prs)
+            //console.log(prs)
             console.log(prs.data)
             for (const pr of prs.data) {
               console.log(pr.title)
+              console.log(pr)
             }
             
           })
