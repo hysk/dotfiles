@@ -31,9 +31,9 @@ jobs:
               console.log(pr.created_at + " ---------")
               console.log(pr.html_url)
               console.log(pr.title)
-              console.log(pr)
+              console.log("--reviewers--")
               for (const rev of pr.requested_reviewers) {
-                console.log(rev.login)
+                console.log(" -  " + rev.login)
               }
             }
           })
