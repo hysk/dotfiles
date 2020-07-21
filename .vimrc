@@ -134,9 +134,11 @@ noremap <C-U><C-Y> :Unite -buffer-name=register register<CR>
 " NERDTree
 nnoremap <f2> :NERDTreeToggle<CR>
 
+" NERDTreeで^Gの表示を消す（デリミタを変更）
+let g:NERDTreeNodeDelimiter = "\u00a0"
+
 " QuickFixListを新しいタブで開く
 autocmd QuickFixCmdPost vimgrep tab cwindow
-
 
 " viでは読み込まない ここから
 if 1
