@@ -27,3 +27,6 @@ jobs:
             repo: context.repo.repo
           })
           console.log(prs)
+          prs.then(function(prs){
+            console.log(prs)
+          })
