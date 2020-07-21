@@ -28,7 +28,7 @@ jobs:
           }) 
           prs.then(function(prs){
             for (const pr of prs.data) {
-              console.log(created_at + " ---------")
+              console.log(pr.created_at + " ---------")
               console.log(pr.html_url)
               console.log(pr.title)
               console.log(pr)
