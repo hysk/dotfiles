@@ -55,6 +55,14 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'leafgarland/typescript-vim'
 
+" post install (yarn install | npm install) then load plugin only for editing supported files
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install --frozen-lockfile --production',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+
+Plug 'dense-analysis/ale'
+Plug 'jparise/vim-graphql'
+
 " Plug 'scrooloose/nerdtree'
 " Plug 'jistr/vim-nerdtree-tabs'
 " Plug 'tpope/vim-commentary'
@@ -66,7 +74,6 @@ Plug 'leafgarland/typescript-vim'
 " Plug 'vim-scripts/CSApprox'
 " Plug 'Raimondi/delimitMate'
 " Plug 'majutsushi/tagbar'
-" Plug 'dense-analysis/ale'
 " Plug 'Yggdroot/indentLine'
 " Plug 'editor-bootstrap/vim-bootstrap-updater'
 " Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
@@ -83,6 +90,34 @@ call plug#end()
 " Required
 filetype plugin indent on
 
+"*****************************************************************************
+"" ALE settings
+"*****************************************************************************
+
+" use eslint, prettier, and stylelint
+let g:ale_fixers = {
+      \    'javascript': ['prettier'],
+      \    'typescript': ['prettier'],
+      \    'css': ['prettier'],
+      \    'html': ['prettier']
+      \}
+
+" use eslint for ts and js
+let g:ale_linters = {
+      \    'typescript': [ 'eslint' ],
+      \    'javascript': [ 'eslint' ],
+      \    'graphql': [ 'eslint' ]
+      \}
+
+" enable quickfix
+let g:ale_set_loclist = 1
+let g:ale_set_quickfix = 0
+
+let g:ale_fix_on_save = 1
+
+let g:ale_javascript_prettier_use_local_config = 1
+
+let g:ale_set_highlights = 1
 
 
 "*****************************************************************************
@@ -93,7 +128,7 @@ let g:loaded_netrw  = 1
 let g:loaded_netrwPlugin = 1
 let g:loaded_netrwSettings = 1
 let g:loaded_netrwFileHandlers = 1
-
+let g:fern#default_hidden=1
 
 function! FernStart() abort
   :Fern . -drawer -width=40 -toggle -keep -reveal=%<CR>
@@ -213,10 +248,10 @@ set t_Co=256
 set background=dark
 
 " カラースキームを一部変更 -----
-autocmd ColorScheme * highlight Cursor ctermfg=28 ctermbg=140  " カーソル
-autocmd ColorScheme * highlight CursorLine term=underline cterm=underline ctermfg=227 ctermbg=233    " カーソル行
-autocmd ColorScheme * highlight Search ctermfg=17 ctermbg=213     " 検索結果をハイライト
-autocmd ColorScheme * highlight Visual ctermbg=237    " Visualモード選択色
+ autocmd ColorScheme * highlight Cursor ctermfg=28 ctermbg=140  " カーソル
+ autocmd ColorScheme * highlight CursorLine term=underline cterm=underline ctermfg=227 ctermbg=233    " カーソル行
+ autocmd ColorScheme * highlight Search ctermfg=17 ctermbg=213     " 検索結果をハイライト
+ autocmd ColorScheme * highlight Visual ctermbg=237    " Visualモード選択色
 
 " シンタックスハイライト有効化 (背景黒向け。白はコメントアウトされている設定を使用)
 syntax enable
@@ -232,6 +267,9 @@ set fileencoding=utf-8          " 保存時文字コード
 set fileencodings=utf-8,sjis,euc-jp     " 文字コード自動判別
 set fileformats=unix,dos,mac    " 改行コード自動判別
 "set ambiwidth=double           " □などの崩れ対策
+
+" ESC押下時の挙動
+set ttimeoutlen=10
 
 " tagsファイル設定
 set tags=.tags;$HOME      " ホームディレクトリまで遡って探す
@@ -255,6 +293,7 @@ set splitright
 set laststatus=2
 
 " ステータスラインの内容
+"set statusline=%{LinterStatus()}
 set statusline=%F%m%r%h%w\%=[TYPE=%Y]\[FORMAT=%{&ff}]\[ENC=%{&fileencoding}]\[LOW=%l/%L]
 
 " 検索 -----
