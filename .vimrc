@@ -63,6 +63,13 @@ Plug 'prettier/vim-prettier', {
 Plug 'dense-analysis/ale'
 Plug 'jparise/vim-graphql'
 
+" Language Server Protocol
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
 " Plug 'scrooloose/nerdtree'
 " Plug 'jistr/vim-nerdtree-tabs'
 " Plug 'tpope/vim-commentary'
